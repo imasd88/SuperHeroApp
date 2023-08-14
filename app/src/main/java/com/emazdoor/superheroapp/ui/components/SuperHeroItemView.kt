@@ -1,23 +1,29 @@
 package com.emazdoor.superheroapp.ui.components
 
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.emazdoor.superheroapp.R
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.emazdoor.superheroapp.mock.MockData
+import com.emazdoor.superheroapp.model.Superhero
 
 @Composable
-fun SuperHeroItemView(title: String = "", subTitle: String = "") {
+fun SuperHeroItemView(superhero: Superhero) {
     Divider(modifier = Modifier.padding(start = 10.dp), color = Color.LightGray)
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -29,18 +35,17 @@ fun SuperHeroItemView(title: String = "", subTitle: String = "") {
                 .padding(4.dp)
         )
         {
-            Image(
-                painter = painterResource(id = R.drawable.placeholder_image),
-                contentDescription = "circular image"
-            )
+            ImageArt(url = superhero.images.md, fallback = fallbackAlbumArtDrawable())
         }
         Column(
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 4.dp)
         ) {
-            TextView(text = title, color = Color.Red)
-            TextView(text = subTitle)
+            superhero.apply {
+                TextView(text = name, color = Color.Red)
+                TextView(text = biography.fullName)
+            }
         }
     }
 }
@@ -48,5 +53,5 @@ fun SuperHeroItemView(title: String = "", subTitle: String = "") {
 @Preview
 @Composable
 fun PreviewItemView() {
-    SuperHeroItemView(title = "Batman", subTitle = "HarryPotter")
+    SuperHeroItemView(MockData.getMockData()[0])
 }
