@@ -1,46 +1,43 @@
 package com.emazdoor.superheroapp
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.emazdoor.superheroapp.ui.theme.SuperHeroAppTheme
+import androidx.fragment.app.FragmentActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class MainActivity : FragmentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            SuperHeroAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
-        }
+        setContentView(R.layout.activity_main)
     }
+
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SuperHeroAppTheme {
-        Greeting("Android")
+/*Since Compose is a declarative UI framework, the above code can be simplified as well
+* instead of using Fragments and Navigation we could have used Compose directly instead.
+* Handling navigation of SuperHeroListScreen and SuperHeroDetailsScreen could have been done
+* directly using Compose with Activity.
+* Eliminating the need of Fragments and Navigation completely.
+* Something like this
+* @Composable
+fun MainActivity() {
+  val navController = rememberNavController()
+  MaterialApp(
+    startDestination = "home",
+    navController = navController
+  ) {
+    NavHost(navController = navController, startDestination = "superheroList") {
+      composable("superheroList") { SuperHeroListScreen(navController = navController) }
+      composable("superheroDetails") { SuperHeroDetailsScreen() }
     }
+  }
 }
+* @Composable
+fun SuperHeroListScreen(navController: NavController) {
+  Text("This is the Super Hero List Screen")
+  Button(onClick = { navController.navigate("superheroDetails") }) {
+    Text("Super Hero List Screen")
+  }
+}
+* */
