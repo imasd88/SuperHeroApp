@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/superheroListScreen">
+
+    <fragment
+        android:id="@+id/superheroListScreen"
+        android:name="com.emazdoor.superheroapp.ui.screens.SuperheroListScreen"
+        android:label="SuperheroListScreen" >
+        <action
+            android:id="@+id/action_superheroListScreen_to_superheroDetailScreen"
+            app:destination="@id/superheroDetailScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/superheroDetailScreen"
+        android:name="com.emazdoor.superheroapp.ui.screens.SuperheroDetailScreen"
+        android:label="SuperheroDetailScreen" >
+        <argument
+            android:name="superHeroId"
+            app:argType="integer" />
+    </fragment>
+</navigation>

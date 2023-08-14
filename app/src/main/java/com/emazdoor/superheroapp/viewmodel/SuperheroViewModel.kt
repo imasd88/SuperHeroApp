@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SuperheroViewModel @Inject constructor(var repository: SuperHeroRepository): ViewModel() {
+class SuperheroViewModel @Inject constructor(var repository: SuperHeroRepository) : ViewModel() {
 
     private val _superheroesState = MutableStateFlow<List<Superhero>>(emptyList())
     val superheroesState: StateFlow<List<Superhero>> = _superheroesState
@@ -23,4 +23,10 @@ class SuperheroViewModel @Inject constructor(var repository: SuperHeroRepository
         }
     }
 
+    fun getSearchedSuperHeroes(name: String) {
+        viewModelScope.launch {
+            val superHeroes = repository.searchSuperheroes(name)
+            _superheroesState.value = superHeroes
+        }
+    }
 }
