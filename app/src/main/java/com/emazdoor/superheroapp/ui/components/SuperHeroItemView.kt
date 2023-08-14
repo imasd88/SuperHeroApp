@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.emazdoor.superheroapp.mock.MockData
@@ -24,6 +26,9 @@ fun SuperHeroItemView(superhero: Superhero, onClick: (Int) -> Unit = { }) {
             .fillMaxWidth()
             .clickable {
                 onClick(superhero.id)
+            }
+            .semantics {
+                contentDescription = "Superhero ${superhero.name}"
             },
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -33,7 +38,7 @@ fun SuperHeroItemView(superhero: Superhero, onClick: (Int) -> Unit = { }) {
                 .padding(4.dp)
         )
         {
-            ImageArt(url = superhero.images.md, fallback = fallbackAlbumArtDrawable())
+            ImageArt(url = superhero.images.md, fallback = fallbackAlbumArtDrawable(), contentDescription = "Superhero ${superhero.name} Image")
         }
         Column(
             modifier = Modifier

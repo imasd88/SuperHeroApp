@@ -22,6 +22,7 @@ import com.emazdoor.superheroapp.R
 fun ImageArt(
     url: String?,
     @DrawableRes fallback: Int,
+    contentDescription: String?,
     modifier: Modifier = Modifier,
 ) = AsyncImage(
     modifier = modifier,
@@ -32,7 +33,7 @@ fun ImageArt(
         .fallback(fallback)
         .error(fallback)
         .build(),
-    contentDescription = null,
+    contentDescription = contentDescription,
     contentScale = ContentScale.Crop,
 )
 
