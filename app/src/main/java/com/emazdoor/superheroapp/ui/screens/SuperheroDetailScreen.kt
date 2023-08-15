@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
+import androidx.navigation.findNavController
 import com.emazdoor.superheroapp.R
 import com.emazdoor.superheroapp.ui.components.CircularBackground
 import com.emazdoor.superheroapp.ui.components.Header
@@ -57,7 +59,9 @@ class SuperheroDetailScreen : Fragment() {
                             it.apply {
                                 Text(
                                     text = "< ${superhero.name}",
-                                    Modifier.align(Alignment.CenterStart)
+                                    Modifier.align(Alignment.CenterStart).clickable {
+                                        findNavController().popBackStack()
+                                    }
                                 )
                                 Text(
                                     text = "${superhero.biography.fullName}",

@@ -83,7 +83,7 @@ class SuperheroViewModelTest {
     }
 
     @Test
-    fun getgetTheSuperhero_shouldReturnSuperheroesState() {
+    fun getTheSuperhero_shouldReturnSuperheroesState() {
         runBlocking {
             Mockito.`when`(repository.getTheSuperhero(345))
                 .thenReturn(superheroes.toList()[0])
