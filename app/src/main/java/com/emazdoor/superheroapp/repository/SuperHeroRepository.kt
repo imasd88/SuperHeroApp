@@ -12,6 +12,8 @@ class SuperHeroRepository @Inject constructor(
 
     suspend fun searchSuperheroes(name: String): List<Superhero> = superheroApi.searchSuperheroes(name)
 
+    suspend fun getTheSuperhero(id: Int): List<Superhero> = superheroApi.getTheSuperhero(id)
+
     /*
     suspend fun toggleFavorite(superhero: Superhero) {
         superheroDao.toggleFavorite(superhero)

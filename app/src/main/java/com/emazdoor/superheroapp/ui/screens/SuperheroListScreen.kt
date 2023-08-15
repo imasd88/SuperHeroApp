@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -24,6 +25,7 @@ import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.findNavController
 import com.emazdoor.superheroapp.R
 import com.emazdoor.superheroapp.model.Superhero
+import com.emazdoor.superheroapp.ui.components.Header
 import com.emazdoor.superheroapp.ui.components.SearchView
 import com.emazdoor.superheroapp.ui.components.SuperHeroItemView
 import com.emazdoor.superheroapp.ui.theme.SuperHeroAppTheme
@@ -33,7 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SuperheroListScreen : Fragment() {
 
-    private val viewModel: SuperheroViewModel by hiltNavGraphViewModels(R.id.nav_graph)//by viewModels()
+    private val viewModel: SuperheroViewModel by hiltNavGraphViewModels(R.id.nav_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +58,8 @@ class SuperheroListScreen : Fragment() {
         val superheroList = viewModel.superheroesState.collectAsState().value
 
         Column {
-            SearchView(context = composeView.context) { viewModel.getSearchedSuperHeroes(it) }
+            Header(modifier = Modifier.fillMaxWidth())
+            { SearchView(context = composeView.context) { viewModel.getSearchedSuperHeroes(it) } }
             if (superheroList.isEmpty()) {
                 SuperHeroEmptyList()
             } else {

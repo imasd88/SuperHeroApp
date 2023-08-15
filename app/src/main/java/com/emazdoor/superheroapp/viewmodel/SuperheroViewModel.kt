@@ -29,4 +29,11 @@ class SuperheroViewModel @Inject constructor(var repository: SuperHeroRepository
             _superheroesState.value = superHeroes
         }
     }
+
+    fun getTheSuperHero(id: Int) {
+        viewModelScope.launch {
+            val superHeroes = repository.getTheSuperhero(id)
+            _superheroesState.value = superHeroes
+        }
+    }
 }
