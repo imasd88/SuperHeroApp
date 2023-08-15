@@ -81,4 +81,16 @@ class SuperheroViewModelTest {
             assertEquals(superheroes[0], viewModel.superheroesState.value)
         }
     }
+
+    @Test
+    fun getgetTheSuperhero_shouldReturnSuperheroesState() {
+        runBlocking {
+            Mockito.`when`(repository.getTheSuperhero(345))
+                .thenReturn(superheroes.toList()[0])
+
+            viewModel.getTheSuperHero(345)
+
+            assertEquals(superheroes[0], viewModel.superheroesState.value)
+        }
+    }
 }
