@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -56,12 +58,20 @@ class SuperheroListScreen : Fragment() {
     @Composable
     fun MainContent(composeView: ComposeView) {
         val superheroList = viewModel.superheroesState.collectAsState().value
+        val searchedTerm = remember {
+            mutableStateOf(String())
+        }
 
         Column {
             Header(modifier = Modifier.fillMaxWidth())
-            { SearchView(context = composeView.context) { viewModel.getSearchedSuperHeroes(it) } }
+            {
+                SearchView(context = composeView.context) {
+                    viewModel.getSearchedSuperHeroes(it)
+                    searchedTerm.value = it
+                }
+            }
             if (superheroList.isEmpty()) {
-                SuperHeroEmptyList()
+                SuperHeroEmptyList(searchedTerm = searchedTerm.value)
             } else {
                 SuperHeroList(superheroList = superheroList, composeView = composeView)
             }
@@ -69,14 +79,14 @@ class SuperheroListScreen : Fragment() {
     }
 
     @Composable
-    fun SuperHeroEmptyList(modifier: Modifier = Modifier) {
+    fun SuperHeroEmptyList(modifier: Modifier = Modifier, searchedTerm: String) {
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .background(color = Color.LightGray)
         ) {
             Text(
-                text = "No superheros found",
+                text = "No superheros found with for $searchedTerm",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .semantics {
