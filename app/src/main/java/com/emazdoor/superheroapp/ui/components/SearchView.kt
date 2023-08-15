@@ -34,7 +34,7 @@ fun SearchView(
     context: Context,
     onSearchTermChange: (String) -> Unit = {}
 ) = Surface(
-    color = Color.LightGray, modifier = modifier.padding(16.dp),
+    color = Color.White, modifier = modifier.padding(16.dp),
     shape = RoundedCornerShape(5.dp)
 ) {
     var searchTerm by remember { mutableStateOf(TextFieldValue()) }
